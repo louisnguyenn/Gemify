@@ -1,4 +1,5 @@
 import './App.css'
+import './sidebar.css'
 import { useState, useEffect } from "react";
 import { FormControl, InputGroup, Container, Button, Row, Card } from "react-bootstrap";
 
@@ -9,7 +10,7 @@ function App() {
   const [searchInput, setSearchInput] = useState("");
   const [accessToken, setAccessToken] = useState("");
 
-  // albums are going to hold an array
+  // albums are going to hold an array with the setter function 'setAlbums'
   const [albums, setAlbums] = useState([]); // initialize empty array
 
   useEffect(() => {
@@ -87,6 +88,16 @@ function App() {
 
   return (
     <div className="App">
+          <nav class="sidebar">
+            <header class="sidebar-header">
+              <button class="sidebar-toggle">
+                <span class="material-symbols-rounded">
+                  dock_to_left
+                  </span>
+              </button>
+            </header>
+          </nav>
+
       <h1>Welcome to Gemify</h1>
       <Container>
         <InputGroup>
@@ -169,18 +180,6 @@ function App() {
                 >
                   Release Date: <br />{album.release_date}
                 </Card.Text>
-                {/* <Button href={album.external_urls.spotify}
-                  style={{
-                    backgroundColor: "black",
-                    color: "White",
-                    fontWeight: "bold",
-                    fontSize: "15px",
-                    borderRadius: "5px",
-                    padding: "10px",
-                  }}
-                >
-                  Go to Album
-                </Button> */}
               </Card.Body>
             </Card>
           )
