@@ -1,0 +1,22 @@
+.sidebar-toggle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 32px;
+    cursor: pointer;
+    z-index: 1000;
+  }
+  
+  .sidebar-toggle:hover {
+    border-color: #1a1a1a;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 250px;
+    background: #1a1a1a;
+  }
+  
