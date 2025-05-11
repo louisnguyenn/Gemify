@@ -87,10 +87,11 @@ function App() {
   };
 
   return (
+    // sidebar toggle
     <div className="App">
           <nav class="sidebar">
             <header class="sidebar-header">
-              <button class="sidebar-toggle">
+              <button class="sidebar-toggle" title="Toggle Sidebar">
                 <span class="material-symbols-rounded">
                   dock_to_left
                   </span>
@@ -121,6 +122,7 @@ function App() {
           />
           <Button onClick={handleClick}>Search</Button>
 
+          {/* clear button*/}
           <Button onClick={clearAlbums}
             style={{
               marginLeft: "10px",
@@ -179,6 +181,8 @@ function App() {
                   }}
                 >
                   Release Date: <br />{album.release_date}
+                  <br /><br />
+                  Tracks: {album.total_tracks}
                 </Card.Text>
               </Card.Body>
             </Card>
