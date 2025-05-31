@@ -43,14 +43,17 @@ Gemify is a modern web application that allows users to explore music in a smart
    cd gemify
    
 2. Install dependencies:
+   ```bash
    npm install
    
-3. Create a .env file in the root with the following:
+4. Create a .env file in the root with the following:
+   ```.env
    VITE_SPOTIFY_CLIENT_ID=your_spotify_client_id
    VITE_SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
    VITE_GEMINI_API_KEY=your_gemini_api_key
 
-4. Run the app:
+5. Run the app:
+   ```bash
    npm run dev
 
 ## 🙌 Credits
