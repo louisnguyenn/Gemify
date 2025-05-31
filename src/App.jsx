@@ -2,6 +2,7 @@ import './App.css'
 import './sidebar.css'
 import { useState, useEffect } from "react";
 import { FormControl, InputGroup, Container, Button, Row, Card } from "react-bootstrap";
+import SongAnalysisSidebar from './components/SongAnalysisSidebar';
 
 const clientId = import.meta.env.VITE_CLIENT_ID;
 const clientSecret = import.meta.env.VITE_CLIENT_SECRET;
@@ -9,9 +10,8 @@ const clientSecret = import.meta.env.VITE_CLIENT_SECRET;
 function App() {
   const [searchInput, setSearchInput] = useState("");
   const [accessToken, setAccessToken] = useState("");
-
-  // albums are going to hold an array with the setter function 'setAlbums'
-  const [albums, setAlbums] = useState([]); // initialize empty array
+  const [albums, setAlbums] = useState([]);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     let auth = {
@@ -23,18 +23,14 @@ function App() {
         "grant_type=client_credentials&client_id=" + clientId + "&client_secret=" + clientSecret,
     };
 
-      // fetch is a function that makes HTTP requests
-      // we send the post request to the URL and an object auth that includes our clientID and clientSecret
-      fetch("https://accounts.spotify.com/api/token", auth)
+    fetch("https://accounts.spotify.com/api/token", auth)
       .then((result) => result.json())
       .then((data) => {
         setAccessToken(data.access_token);
       });
   }, []);
 
-  // search function
-  // using the GET request to retrieve the artists from spotify
-  async function search(){
+  async function search() {
     let artist = {
       method: "GET",
       headers: {
@@ -43,61 +39,56 @@ function App() {
       },
     };
 
-    // getting the artist
     const artistID = await fetch(
-      "https://api.spotify.com/v1/search?q=" + searchInput + "&type=artist",  // the link to finding the artist
+      "https://api.spotify.com/v1/search?q=" + searchInput + "&type=artist",
       artist
     )
       .then((result) => result.json())
       .then((data) => {
         return data.artists.items[0].id;
       });
-      
-      // console.log("Search Input: " + searchInput);
-      // console.log("Artist ID: " + artistID);
 
-      // get artist albums
-      await fetch(
-        "https://api.spotify.com/v1/artists/" + artistID + "/albums?include_groups=album&market=US&limit=50", artist
-      )
+    await fetch(
+      "https://api.spotify.com/v1/artists/" + artistID + "/albums?include_groups=album&market=US&limit=50",
+      artist
+    )
       .then((result) => result.json())
       .then((data) => {
         setAlbums(data.items)
       });
   }
 
-  async function clear(){
-    setAlbums([]); // reset the album to an empty array
+  async function clear() {
+    setAlbums([]);
   }
 
-  // when pressing enter
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
-      search(); // calling search function
+      search();
     }
   };
 
-  // when pressing the button
   const handleClick = () => {
-    search(); // calling search button
+    search();
   };
 
   const clearAlbums = () => {
     clear();
   };
 
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   return (
-    // sidebar toggle
     <div className="App">
-          <nav class="sidebar">
-            <header class="sidebar-header">
-              <button class="sidebar-toggle" title="Toggle Sidebar">
-                <span class="material-symbols-rounded">
-                  dock_to_left
-                  </span>
-              </button>
-            </header>
-          </nav>
+      <button className="sidebar-toggle" onClick={toggleSidebar} title="Toggle Sidebar">
+        <span className="material-symbols-rounded">
+          {isSidebarOpen ? 'dock_to_right' : 'dock_to_left'}
+        </span>
+      </button>
+
+      <SongAnalysisSidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
       <h1>Welcome to Gemify</h1>
       <Container>
@@ -121,75 +112,63 @@ function App() {
             }}
           />
           <Button onClick={handleClick}>Search</Button>
-
-          {/* clear button*/}
-          <Button onClick={clearAlbums}
-            style={{
-              marginLeft: "10px",
-            }}
-            >Clear</Button>
+          <Button onClick={clearAlbums} style={{ marginLeft: "10px" }}>Clear</Button>
         </InputGroup>
       </Container>
 
-      {/* album card */}
       <Container>
-      <Row style={{
+        <Row style={{
           display: "flex",
           flexDirection: "row",
           flexWrap: "wrap",
           justifyContent: "space-around",
           alignContent: "center",
-        }}
-      >
-        {albums.map((album) => {
-          return (
-            <Card key={album.id}
-                  className="album-card"
-                  onClick={() => window.open(album.external_urls.spotify, "_blank")}
-                  style={{
-                    backgroundColor: "#1c1c1c",
-                    marginTop: "100px",
-                    margin: "30px",
-                    borderRadius: "5px",
-                    marginBottom: "30px",
-                  }}
-            >
-              <Card.Img
-                width={200}
-                src={album.images[0].url}
+        }}>
+          {albums.map((album) => {
+            return (
+              <Card
+                key={album.id}
+                className="album-card"
+                onClick={() => window.open(album.external_urls.spotify, "_blank")}
                 style={{
-                  borderRadius: "4%",
+                  backgroundColor: "#1c1c1c",
+                  marginTop: "100px",
+                  margin: "30px",
+                  borderRadius: "5px",
+                  marginBottom: "30px",
                 }}
-                >
-              </Card.Img>
-              <Card.Body>
-                <Card.Title
+              >
+                <Card.Img
+                  width={200}
+                  src={album.images[0].url}
                   style={{
-                    whiteSpace: "wrap",
-                    fontWeight: "bold",
-                    maxWidth: "200px",
-                    fontSize: "18px",
-                    marginTop: "10px",
-                    color: "white",
+                    borderRadius: "4%",
                   }}
-                >
-                  {album.name}
-                </Card.Title>
-                <Card.Text
-                  style={{
-                    color: "white",
-                  }}
-                >
-                  Release Date: <br />{album.release_date}
-                  <br /><br />
-                  Tracks: {album.total_tracks}
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          )
-        })}
-      </Row>
-    </Container>
+                />
+                <Card.Body>
+                  <Card.Title
+                    style={{
+                      whiteSpace: "wrap",
+                      fontWeight: "bold",
+                      maxWidth: "200px",
+                      fontSize: "18px",
+                      marginTop: "10px",
+                      color: "white",
+                    }}
+                  >
+                    {album.name}
+                  </Card.Title>
+                  <Card.Text style={{ color: "white" }}>
+                    Release Date: <br />{album.release_date}
+                    <br /><br />
+                    Tracks: {album.total_tracks}
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            )
+          })}
+        </Row>
+      </Container>
     </div>
   );
 }
