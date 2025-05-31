@@ -59,4 +59,4 @@ Gemify is a modern web application that allows users to explore music in a smart
 ## 🙌 Credits
 Created by Louis Nguyen  
 Powered by Spotify and Google Gemini APIs  
-Template used from CodeDex
+Template used from Codédex
