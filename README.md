@@ -1,5 +1,6 @@
 # 🎧 Gemify
 
+<img alt="Gemify Home Page" src="public/gemify-home.png">
 Gemify is a modern web application that allows users to explore music in a smarter way. By integrating the **Spotify API** and **Gemini API**, Gemify lets users search for artists, view their albums, track listings, and release dates — and even chat with an AI music expert for song recommendations or detailed artist insights.
 
 ---
