@@ -33,7 +33,7 @@ Gemify is a modern web application that allows users to explore music in a smart
 - **Spotify Web API** – To fetch artist, album, and track data  
 - **Gemini API (Google AI)** – For AI-powered music insights  
 - **Bootstrap / CSS** – For UI and styling
-- **Node.js** – Build tool for running the app
+- **Node.js / Vite** – Build tool for running the app
 - **Prompt Engineering** – To optimize chatbot responses  
 
 ---
