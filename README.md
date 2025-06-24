@@ -29,7 +29,7 @@ Gemify is a modern web application that allows users to explore music in a smart
 
 ## 🛠️ Technologies Used
 
-- **JavaScript** & **React.js** – Frontend framework  
+- **JavaScript** and **React** – Frontend framework  
 - **Spotify Web API** – To fetch artist, album, and track data  
 - **Gemini API (Google AI)** – For AI-powered music insights  
 - **Bootstrap / CSS** – For UI and styling
