@@ -21,26 +21,11 @@ h1 {
   transition: transform 0.3s ease;
   box-shadow: 0.3s ease;
   border: 3px solid transparent;
-  background: linear-gradient(#1c1c1c, #1c1c1c) padding-box,
-              linear-gradient(270deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8f00ff) border-box;
   background-size: 600% 600%;
-  animation: borderGlowCycle 13s ease-in-out infinite;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
 .album-card:hover {
-  transform: scale(1.05);
+  transform: scale(1.02);
   cursor: pointer;
-}
-
-@keyframes borderGlowCycle {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
 }

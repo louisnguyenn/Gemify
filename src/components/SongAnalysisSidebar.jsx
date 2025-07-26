@@ -128,4 +128,4 @@ const SongAnalysisSidebar = ({ isOpen, onClose }) => {
   );
 };
 
-export default SongAnalysisSidebar; 
+export default SongAnalysisSidebar;
